@@ -31,7 +31,16 @@ Browser.prototype.init = function ( options ) {
     var nextDeviceId = 0;
 
     this.devices = {};
-
+    this.getDeviceTxtValue = function(device, key, fallback) {
+      var value = fallback !== undefined ? fallback : '';
+      for (var i = 0; i < device.txt.length; i++) {
+        var keyValue = device.txt[i].split('=');
+        if (keyValue[0] === key) {
+          value = keyValue[1];
+        }
+      }
+      return value;
+    }
     //var mdnsBrowser = new mdns.Mdns(mdns.tcp('airport'));
     var browser = new mdns.createBrowser(mdns.tcp('airplay'));
     //var legacyMdnsBrowser = new mdns.Mdns(mdns.tcp('airplay'));
@@ -39,7 +48,8 @@ Browser.prototype.init = function ( options ) {
     var mdnsOnUpdate = function(data) {
         if(data.port && data.port == 7000){
             var info = data.addresses
-            var name = data.type[0].name
+            var lastDot = data.host.lastIndexOf('.');
+            var name = data.host.substring(0, lastDot);
             /*
             if ( !self.isValid( info ) ) {
                 return;
