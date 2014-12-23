@@ -24,8 +24,12 @@ util.inherits( Browser, events.EventEmitter );
 exports.Browser = Browser;
 
 
-
-
+var discoverTimeout = 12000;
+setTimeout(function() {
+  console.log('airplay-js: device discovery stopped');
+  browser.stop();
+}, discoverTimeout);
+};
 Browser.prototype.init = function ( options ) {
     var self = this;
     var nextDeviceId = 0;
@@ -145,4 +149,5 @@ Browser.prototype.getDevices = function ( skipCheck ) {
         }
     }
     return devices;
+
 };
