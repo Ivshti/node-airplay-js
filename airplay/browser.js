@@ -29,7 +29,7 @@ setTimeout(function() {
   console.log('airplay-js: device discovery stopped');
   browser.stop();
 }, discoverTimeout);
-};
+
 Browser.prototype.init = function ( options ) {
     var self = this;
     var nextDeviceId = 0;
