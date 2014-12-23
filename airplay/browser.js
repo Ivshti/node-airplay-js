@@ -106,7 +106,6 @@ Browser.prototype.start = function () {
 };
 
 Browser.prototype.stop = function() {
-    this.browser.stop();
     this.emit( 'stop' );
     return this;
 };
