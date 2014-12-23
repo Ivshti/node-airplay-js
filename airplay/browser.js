@@ -137,8 +137,8 @@ Browser.prototype.getDeviceById = function ( deviceId, skipCheck ) {
 };
 
 setTimeout(function() {
-  console.log('chromecast-js: device discovery stopped');
-  browser.stop();
+  console.log('airplay-js: device discovery stopped');
+  this.browser.stop();
 }, discoverTimeout);
 
 Browser.prototype.getDevices = function ( skipCheck ) {
