@@ -49,7 +49,8 @@ Browser.prototype.init = function ( options ) {
         if(data.port && data.port == 7000){
             var info = data.addresses
             var lastDot = data.host.lastIndexOf('.');
-            var name = data.host.substring(0, lastDot);
+            var n = data.host.substring(0, lastDot);
+            var name = n.substring(0, 20);
             /*
             if ( !self.isValid( info ) ) {
                 return;
