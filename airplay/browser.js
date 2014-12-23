@@ -22,7 +22,7 @@ var Browser = function( options ) {
 util.inherits( Browser, events.EventEmitter );
 
 exports.Browser = Browser;
-var discoverTimeout = 12000;
+
 
 
 
@@ -48,9 +48,7 @@ Browser.prototype.init = function ( options ) {
     var mdnsOnUpdate = function(data) {
         if(data.port && data.port == 7000){
             var info = data.addresses
-            var lastDot = data.host.lastIndexOf('.');
-            var n = data.host.substring(0, lastDot);
-            var name = n.substring(0, 20);
+            var name = data.fullname.split('.')[0]
             /*
             if ( !self.isValid( info ) ) {
                 return;
@@ -136,10 +134,7 @@ Browser.prototype.getDeviceById = function ( deviceId, skipCheck ) {
     }
 };
 
-setTimeout(function() {
-  console.log('airplay-js: device discovery stopped');
-  this.browser.stop();
-}, discoverTimeout);
+
 
 Browser.prototype.getDevices = function ( skipCheck ) {
     var devices = [];
