@@ -1,6 +1,6 @@
 /**
  * node-airplay
- * 
+ *
  * @file airplay protocol client
  * @author zfkun(zfkun@msn.com)
  * @thanks https://github.com/benvanik/node-airplay/blob/master/lib/airplay/client.js
@@ -49,7 +49,13 @@ var Client = function ( options, callback ) {
             console.info( e.message );
         }
     });
+    this.socket.on( 'end', function() {
+    });
+
+
 };
+
+
 
 util.inherits( Client, events.EventEmitter );
 exports.Client = Client;
@@ -180,12 +186,13 @@ Client.prototype.post = function( path, body, callback ) {
 Client.prototype.serverInfo = function ( callback ) {
     this.get( '/server-info', function ( res ) {
         var info = {};
-        
+
         var obj = plist.parseStringSync( res.body );
         if ( obj ) {
             info = {
                 deviceId: obj.deviceid,
                 features: obj.features,
+                macAddress: obj.macAddress,
                 model: obj.model,
                 osVersion: obj.osBuildVersion,
                 protocolVersion: obj.protovers,

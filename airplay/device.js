@@ -1,6 +1,6 @@
 /**
  * node-airplay
- * 
+ *
  * @file airplay device
  * @author zfkun(zfkun@msn.com)
  * @thanks https://github.com/benvanik/node-airplay/blob/master/lib/airplay/device.js
@@ -26,7 +26,7 @@ function Device ( id, info, name, callback ) {
 
     this.client = new Client(
         {
-            host: info[0], port: 7000 
+            host: info[0], port: 7000
             // ,user: 'zfkun', pass: ''
         },
         function () {
@@ -86,13 +86,13 @@ Device.prototype.getInfo = function() {
         id: this.id,
         name: info.name,
         fullName: info.fullname,
-        deviceId: txtRecord.deviceid || serverInfo.deviceId,
+        deviceId: txtRecord.deviceid || serverInfo.deviceId || serverInfo.macAddress,
         features: serverInfo.features || txtRecord.features,
         model: serverInfo.model,
         interfaceName: info.networkInterface,
         interfaceIndex: info.interfaceIndex,
         addresses: info.addresses,
-        
+
         flags: txtRecord.flags,
         pk: txtRecord.pk,
 
@@ -120,4 +120,3 @@ Device.prototype.getInfo = function() {
         this.client[ api[1] ].apply( this.client, arguments );
     };
 });
-
