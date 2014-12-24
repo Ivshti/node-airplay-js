@@ -93,16 +93,16 @@ Browser.prototype.isValid = function ( info ) {
 };
 
 Browser.prototype.getDevice = function ( info ) {
-    for ( var macAddress in this.devices ) {
-        var device = this.devices[ macAddress ];
+    for ( var DeviceId in this.devices ) {
+        var device = this.devices[ DeviceId ];
         if ( device.match( info ) ) {
             return device;
         }
     }
 };
 
-Browser.prototype.getDeviceById = function ( macAddress, skipCheck ) {
-    var device = this.devices[ macAddress ];
+Browser.prototype.getDeviceById = function ( DeviceId, skipCheck ) {
+    var device = this.devices[ DeviceId ];
     if ( device && ( skipCheck || device.isReady() ) ) {
         return device;
     }
@@ -112,8 +112,8 @@ Browser.prototype.getDeviceById = function ( macAddress, skipCheck ) {
 
 Browser.prototype.getDevices = function ( skipCheck ) {
     var devices = [];
-    for ( var macAddress in this.devices ) {
-        var device = this.devices[ macAddress ];
+    for ( var DeviceId in this.devices ) {
+        var device = this.devices[ DeviceId ];
         if ( skipCheck || device.isReady() ) {
             devices.push( device );
         }
