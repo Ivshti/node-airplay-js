@@ -6,6 +6,9 @@
  */
 
 var fs = require( 'fs' );
+var os = require( 'os' );
+var iconvlite = require('iconv-lite');
+var jschardet = require("jschardet");
 var url = require( 'url' );
 var path = require( 'path' );
 var http = require( 'http' );
@@ -44,6 +47,77 @@ util.inherits( HLSServer, events.EventEmitter );
 exports.HLS = HLSServer;
 
 
+HLSServer.prototype.ffmpeg = function ( file_video,file_srt,file_format ,callback) {
+    var self = this;
+	
+	var intput = file_video;
+    var outfile = path.dirname(file_video)+"/video."+file_format;
+	
+	if (os.platform()=="win32"){
+		outfile=path.dirname(file_video)+"\\video."+file_format;
+	}
+
+    var f = spawn(
+        this.options.lib + 'ffmpeg',
+        this.custom4FFMpeg( file_video,outfile,file_srt,file_format)
+    );
+	
+	
+
+    var output = '';
+    f.stdout.on( 'data', function ( chunk ) {
+        output += chunk;
+        self.emit( 'process', { index: index, file: outfile, out: chunk } );
+    });	
+	
+    f.stdout.on( 'end', callback);
+};
+
+HLSServer.prototype.custom4FFMpeg = function (inputfile,outfile,file_srt,file_format ) {
+	//'ISO-8859-7'
+	
+    var opt_1 = [
+		'-fflags',
+		'+genpts',
+        '-y',
+        '-i',
+        inputfile
+    ];
+	
+	if (file_srt!=null && file_srt!=""){
+		opt_1.push("-sub_charenc");
+		opt_1.push(jschardet.detect(fs.readFileSync(file_srt)).encoding);
+		opt_1.push("-i");
+		opt_1.push(file_srt);
+		opt_1.push("-c:s");
+		
+		if (file_format=="mp4")
+			opt_1.push("mov_text");
+		else if (file_format=="mkv")
+			opt_1.push("copy");	
+		
+		opt_1.push("-preset");
+		opt_1.push("veryfast");
+	}
+	
+	opt_1.push("-c:v");
+	opt_1.push("copy");
+	opt_1.push("-c:a");
+	opt_1.push("copy");
+	
+	if (file_format=="mp4")
+	{
+		opt_1.push("-f");
+		opt_1.push("mp4");
+	}
+	
+    //opt_1.push(outfile.substr(0, outfile.lastIndexOf('.'))+".mp4");
+	opt_1.push(outfile);
+	
+	console.log(opt_1[0]+" "+opt_1[1]+" "+opt_1[2]+" "+opt_1[3]+" "+opt_1[4]+" "+opt_1[5]+" "+opt_1[6]+" "+opt_1[7]+" "+opt_1[8]+" "+opt_1[9]+" "+opt_1[10]+" "+opt_1[11]+" "+opt_1[12]+" "+opt_1[13]+" "+opt_1[14]+" "+opt_1[15]+" "+opt_1[16]+" "+opt_1[17]);
+	
+    return opt_1;
+};
 
 
 HLSServer.prototype.start = function ( port ) {
