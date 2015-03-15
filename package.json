@@ -8,7 +8,7 @@
   },
   "contributors": [],
   "dependencies": {
-    "mdns-js": "kmpm/node-mdns-js",
+    "mdns-js": "0.2.7",
     "plist-with-patches": "0.5.1"
   },
   "keywords": [
