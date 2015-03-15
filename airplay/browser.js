@@ -11,7 +11,7 @@ var events = require( 'events' );
 //var mdns = require( 'mdns' );
 
 var mdns = require( 'mdns-js' );
-var TIMEOUT = 10000;
+var TIMEOUT = 40000;
 var Device = require( './device' ).Device;
 
 var Browser = function( options ) {
