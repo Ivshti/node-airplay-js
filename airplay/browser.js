@@ -11,7 +11,7 @@ var events = require( 'events' );
 //var mdns = require( 'mdns' );
 
 var mdns = require( 'mdns-js' );
-var TIMEOUT = 40000;
+//var TIMEOUT = 40000;
 var Device = require( './device' ).Device;
 
 var Browser = function( options ) {
@@ -67,11 +67,11 @@ Browser.prototype.init = function ( options ) {
             browser.discover();
     });
     browser.on('update', mdnsOnUpdate);
-
+/*
     setTimeout(function onTimeout() {
       browser.stop();
     }, TIMEOUT);
-
+*/
 };
 
 Browser.prototype.start = function () {
