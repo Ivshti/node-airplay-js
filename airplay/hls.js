@@ -375,7 +375,7 @@ HLSServer.prototype.httpHandler = function ( request, response ) {
         body = body.join( '\n' );
 
         // header['Connection'] = 'Keep-Alive';
-        // header['Content-Type'] = 'application/vnd.apple.mpegurl';
+        header['Content-Type'] = 'application/vnd.apple.mpegurl';
         header['Content-Length'] = body.length;
 
         response.writeHead( 200, header );
