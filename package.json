@@ -8,7 +8,7 @@
   },
   "contributors": [],
   "dependencies": {
-    "mdns-js": "0.3.1",
+    "mdns-js": "Ivshti/node-mdns-js",
     "plist-with-patches": "0.5.1"
   },
   "keywords": [
