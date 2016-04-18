@@ -248,7 +248,7 @@ Client.prototype.play = function ( src, position, callback ) {
     var body = [
         'Content-Location: ' + src,
         'Start-Position: ' + (position || 0)
-    ].join( '\n' );
+    ].join( '\n' ) + '\n';
 
     this.post( '/play', body, function( res ) {
         callback && callback( res );
