@@ -78,7 +78,7 @@ Client.prototype.ping = function ( force ) {
             'User-Agent: ' + CLIENT_USERAGENT,
             'Content-Length: 0',
             '\n'
-        ].join( '\n' ) + '\n'
+        ].join( '\n' )
     );
 
     this.emit( 'ping', !!force );
